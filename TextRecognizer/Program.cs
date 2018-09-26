@@ -2,30 +2,34 @@
 using System.Diagnostics;
 using System.Drawing;
 using TextRecognizer.Implementation;
+using TextRecognizer.Implementation.ImageProcessor;
 
 namespace TextRecognizer
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            //var imgProc = new ImageProcessorImpl(new Config
-            //{
-            //    LetterHeight = 35,
-            //    LetterWidth = 25,
-            //    MonochromLevel = 63
-            //});
-            //////var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\Ammy.jpg"));
-            //////for (int ii = 0; ii < 100; ii++)
-            //////{
-            //////    imgProc.Monochrome(imgProc.Median(image), ii).Save($"temp/{ii}.jpg");
-            //////}
-
-
-            //var letters = imgProc.GetLetters(new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\Examples\Ammy.jpg")));
-
+            //var imgProc = ImageProcessorTest.ImageProcessor;
+            //var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\AMMMY.jpg"));
+            //var imgProc = ImageProcessorTest.ImageProcessor;
+            //var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\WINWORD_2018-09-20_20-29-48.jpg"));
             //var i = 0;
+
+
+            //var b = imgProc.GetLetters(image);
+            //image = imgProc.ThroughFilters(image);
+            //var rows = imgProc.GetRows(image);
+
+            //var words = imgProc.GetWords(rows[0]);
+
+            //foreach (var letter in b[0][1])
+            //{
+            //    letter.Save($"temp/{i}.jpg");
+            //    i++;
+            //}
+            //var i = 0;
+            //var letters = imgProc.GetLetters(image);
 
             //foreach (var row in letters)
             //{
@@ -38,6 +42,7 @@ namespace TextRecognizer
             //        }
             //    }
             //}
+
             //Console.WriteLine("dadas");
             //Console.ReadLine();
 
@@ -45,7 +50,7 @@ namespace TextRecognizer
             stopwatch.Start();
             var txtrec = new TextRec();
             stopwatch.Stop();
-            Console.WriteLine(stopwatch.Elapsed.Milliseconds);
+            Console.WriteLine($"Seconds { stopwatch.Elapsed.TotalSeconds }, Minutes { stopwatch.Elapsed.TotalMinutes }");
             var da = txtrec.Recognize(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\Examples\Ammy.jpg"));
             Console.WriteLine(da);
             while (true)

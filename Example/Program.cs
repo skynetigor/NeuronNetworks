@@ -32,8 +32,7 @@ namespace Example
                 (new double[] { 1, 1, 0 }, new double[] { 0}),
                 (new double[] { 1, 1, 1 }, new double[] { 0}),
 
-
-            }, mse: ds => {
+            }, 5000, 0.1, mse: ds => {
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine($"{ds[0]}           ");
             });

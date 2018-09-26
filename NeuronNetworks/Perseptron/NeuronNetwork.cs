@@ -5,7 +5,7 @@ using NeuronNetworks.Perseptron.Layers;
 
 namespace NeuronNetworks.Perseptron
 {
-    public class NeuronNetwork
+    public class NeuronNetwork : INeuronNetwork
     {
         const double DefaultLearningRate = 0.1;
         const int DefaultEpochCount = 5000;
@@ -59,7 +59,7 @@ namespace NeuronNetworks.Perseptron
             return InputLayer.Handle(inputs);
         }
 
-        public void Study((double[], double[])[] trainSets, int epochsCount = DefaultEpochCount, double learningRate = DefaultLearningRate, Action<double[]> mse = null)
+        public void Study((double[], double[])[] trainSets, int epochsCount, double learningRate, Action<double[]> mse = null)
         {
             for (int epochIndex = 0; epochIndex < epochsCount; epochIndex++)
             {

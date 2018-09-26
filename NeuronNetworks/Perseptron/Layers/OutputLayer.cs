@@ -13,7 +13,7 @@ namespace NeuronNetworks.Perseptron.Layers
 
             for (int i = 0; i < Neurons.Length; i++)
             {
-                Neurons[i] = new Neuron(inputsCount, this);
+                Neurons[i] = new Neuron(inputsCount, i, this);
             }
 
             InputsCount = inputsCount;

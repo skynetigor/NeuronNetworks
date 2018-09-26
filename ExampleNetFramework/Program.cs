@@ -50,7 +50,7 @@ namespace ExampleNetFramework
             ToStudy("m", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUNKxE50xZFytYmfCJgMmAhbS-njk5G1Yt_4_II6JGp377aOucvw");
             ToStudy("m", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUNKxE50xZFytYmfCJgMmAhbS-njk5G1Yt_4_II6JGp377aOucvw");
 
-            network.Study(listToStydy.ToArray(), mse: d => {
+            network.Study(listToStydy.ToArray(),5000, 0.1, mse: d => {
                 var c = JsonConvert.SerializeObject(d);
                 //Console.Clear();
                 Console.SetCursorPosition(0, 0);

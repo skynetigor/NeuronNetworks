@@ -4,14 +4,16 @@ using System.Drawing;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using NeuronNetworks.Perseptron;
+using NeuronNetworks.Perseptron.Interfaces;
 using TextRecognizer.Extensions;
+using TextRecognizer.Implementation.ImageProcessor;
 using TextRecognizer.Interfaces;
 
 namespace TextRecognizer.Implementation
 {
     class TextRec
     {
-        private readonly NeuronNetwork network;
+        private readonly INeuronNetwork network;
 
         private readonly IDictionary<int, char> letters;
         private readonly IImageProcessor imageProcessor;
@@ -32,10 +34,11 @@ namespace TextRecognizer.Implementation
             this.imageNormalizer = serviceProvider.GetService<IImageNormalizer>();
             var st = serviceProvider.GetService<StudyProvider>();
 
-            network = new NeuronNetwork(new PerseptronConfig(new[] { config.LetterHeight * config.LetterWidth, st.Letters.Count }));
+            //network = new NeuronNetwork(new PerseptronConfig(new[] { config.LetterHeight * config.LetterWidth, st.Letters.Count }));
+            network = new TextRecognizerNeuronNetwork( config.LetterHeight * config.LetterWidth, st.Letters.Count);
 
             Console.WriteLine("Studying...");
-            network.Study(st.StudyContent);
+            network.Study(st.StudyContent, 50000, 0.05);
             Console.WriteLine("Done!");
 
             letters = st.Letters;
@@ -71,7 +74,7 @@ namespace TextRecognizer.Implementation
                             }
                         }
 
-                        if (previous > 0.5 && letters.TryGetValue(index, out char symbol))
+                        if (letters.TryGetValue(index, out char symbol))
                         {
                             stringBuilder.Append(symbol);
                         }
@@ -98,6 +101,7 @@ namespace TextRecognizer.Implementation
                 .AddConfig<Config>("config.json")
                 .AddSingleton<IImageProcessor, ImageProcessorImpl>()
                 .AddSingleton<IImageNormalizer, ImageNormalizer>()
+                .AddSingleton<IImageScaler, ImageScaler>()
                 .AddTransient(sp => ActivatorUtilities.CreateInstance<StudyProvider>(sp, "study-config.json"));
         }
     }

@@ -11,17 +11,19 @@ namespace NeuronNetworks.Perseptron.Neurons
 
         public ILayer CurrentLayer { get; set; }
 
-        public Neuron(int weightLength, ILayer currentLayer)
+        public int Index { get; }
+
+        public Neuron(int weightLength, int index, ILayer currentLayer)
         {
             Weights = new double[weightLength];
 
             for (int i = 0; i < weightLength; i++)
             {
-                //Weights[i] = 0.5;
                 Weights[i] = (double)1 / random.Next(2, 10);
             }
 
             CurrentLayer = currentLayer;
+            Index = index;
         }
 
         public double Handle(params double[] inputs)

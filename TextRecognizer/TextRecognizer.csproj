@@ -64,12 +64,16 @@
     <Compile Include="Implementation\ImageFilters\OrderAttribute.cs" />
     <Compile Include="Implementation\ImageNormalizer.cs" />
     <Compile Include="Implementation\ImageProcessor\ImageProcessorHelper.cs" />
+    <Compile Include="Implementation\ImageProcessor\ImageProcessorTest.cs" />
+    <Compile Include="Implementation\ImageProcessor\ImageScaler.cs" />
+    <Compile Include="Implementation\TextRecognizerNeuronNetwork.cs" />
     <Compile Include="Interfaces\IImageFilter.cs" />
     <Compile Include="Interfaces\IImageNormalizer.cs" />
     <Compile Include="Interfaces\IImageProcessor.cs" />
     <Compile Include="Implementation\ImageProcessor\ImageProcessor.cs" />
     <Compile Include="Implementation\StudyProvider.cs" />
     <Compile Include="Implementation\TextRec.cs" />
+    <Compile Include="Interfaces\IImageScaler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

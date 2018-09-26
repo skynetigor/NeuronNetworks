@@ -52,7 +52,9 @@ namespace TextRecognizer.Implementation
             foreach (var keyValuePair in examplesDictionary)
             {
                 LoadExamples(result, keyValuePair.Value, outputCount, ref index);
-            }
+            };
+            result.Add((new double[config.LetterHeight * config.LetterWidth], new double[outputCount]));
+            result.Add((new double[config.LetterHeight * config.LetterWidth].Select(t => (double) 1).ToArray(), new double[outputCount]));
 
             return result.ToArray();
         }
