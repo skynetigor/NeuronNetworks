@@ -15,8 +15,10 @@ namespace TextRecognizer.Implementation
         public StudyProvider(Config config, IImageProcessor imageProcessor, IImageNormalizer imageNormalizer, string path)
         {
             this.config = config;
-            this.imageProcessor = imageProcessor;
             this.imageNormalizer = imageNormalizer;
+
+            this.imageProcessor = imageProcessor;
+
             Dictionary<string, ExapmleModel> examplesDictionary;
             using (var reader = new StreamReader(path))
             {
@@ -63,36 +65,44 @@ namespace TextRecognizer.Implementation
         {
             foreach (var imgPath in languegeModel.Images)
             {
-                double[][] letters = GetLetters(imgPath);
+                double[][][] _letters = GetLetters(imgPath);
 
-                for (int charIndex = 0; charIndex < languegeModel.Text.Length; charIndex++)
+                foreach(var letters in _letters)
                 {
-                    var expected = new double[neuronsCount];
-                    expected[charIndex + currentIndex] = 1;
-                    list.Add((letters[charIndex], expected));
-                    lettersList.Add(languegeModel.Text[charIndex]);
+                    for (int charIndex = 0; charIndex < languegeModel.Text.Length; charIndex++)
+                    {
+                        var expected = new double[neuronsCount];
+                        expected[charIndex + currentIndex] = 1;
+                        list.Add((letters[charIndex], expected));
+                        lettersList.Add(languegeModel.Text[charIndex]);
+                    }
                 }
             }
 
             currentIndex = languegeModel.Text.Length;
         }
 
-        private double[][] GetLetters(string imgPath)
+        private double[][][] GetLetters(string imgPath)
         {
             var image = Image.FromFile(imgPath);
+            var _letters = imageProcessor
+                .GetLetters(new Bitmap(image));
+            var all = _letters.Select(t => t.SelectMany(c => c));
+                //.SelectMany(t => t.Select(b => b));
 
-            var all = imageProcessor
-                .GetLetters(new Bitmap(image))
-                .SelectMany(t => t.SelectMany(b => b));
-
-            var result = new List<double[]>();
+            var result = new List<List<double[]>>();
 
             foreach (var bitmap in all)
             {
-                result.Add(imageNormalizer.Normilize(bitmap));
+                var n = new List<double[]>();
+                foreach(var b in bitmap)
+                {
+                    n.Add(imageNormalizer.Normilize(b));
+                }
+                result.Add(n);
             }
 
-            return result.ToArray();
+            return result.Select(t => t.ToArray()).ToArray();
         }
     }
 }

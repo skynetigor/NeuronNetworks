@@ -47,7 +47,7 @@ namespace TextRecognizer.Implementation
                         bcc = new Bitmap[] { c };
                     }
 
-                    return bcc.Select(x => imageScaler.Scale(Cut(x), config.LetterHeight, config.LetterWidth)).Where(bitmap => Filter(bitmap)).ToArray();
+                    return bcc.Select(x => imageScaler.Scale(Cut(x), config.LetterHeight, config.LetterWidth)).Where(this.Filter).ToArray();
                 }).ToArray();
             }).ToArray();
         }
@@ -86,7 +86,7 @@ namespace TextRecognizer.Implementation
                 }
 
                 return t;
-            }).ToArray();
+            }).Where(this.Filter).ToArray();
         }
 
         public Bitmap[] GetWords(Bitmap input)

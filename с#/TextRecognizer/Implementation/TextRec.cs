@@ -38,7 +38,7 @@ namespace TextRecognizer.Implementation
             network = new TextRecognizerNeuronNetwork( config.LetterHeight * config.LetterWidth, st.Letters.Count);
 
             Console.WriteLine("Studying...");
-            network.Study(st.StudyContent, 50000, 0.05);
+            network.Study(st.StudyContent, 2000, 0.05);
             Console.WriteLine("Done!");
 
             letters = st.Letters;
