@@ -21,13 +21,13 @@ namespace NeuronNetworks.Perseptron
 
             Layers[0] = InputLayer = new InputLayer(perseptronConfig.NeuronsPerLayer[0], 0);
 
-            if (perseptronConfig.NeuronsPerLayer.Length > 1)
+            if (Layers.Length > 1)
             {
-                for (int i = 1; i < perseptronConfig.NeuronsPerLayer.Length; i++)
+                for (int i = 1; i < Layers.Length; i++)
                 {
                     ILayer previousLayer = Layers[i - 1];
 
-                    if (i == perseptronConfig.NeuronsPerLayer.Length - 1)
+                    if (i == Layers.Length - 1)
                     {
                         Layers[i] = outputLayer = new OutputLayer(perseptronConfig.NeuronsPerLayer[i], previousLayer, i);
                     }
@@ -91,13 +91,9 @@ namespace NeuronNetworks.Perseptron
 
                     mse?.Invoke(errors.Select(t => Math.Pow(t, 2)).ToArray());
 
-                    (outputLayer as OutputLayer).Study(errors, inputsPerLayer, outputsPerLayer, learningRate);
-
+                    (outputLayer as IOutputLayer).Study(errors, inputsPerLayer, outputsPerLayer, learningRate);
                 }
-
             }
-
-
         }
     }
 }

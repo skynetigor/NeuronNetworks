@@ -4,5 +4,7 @@
     {
         INeuron[] Neurons { get; }
         ILayer PreviousLayer { get; set; }
+
+        void Study(double[] errors, double[][] inputsPerLayer, double[][] outputsPerLayer, double learningRate);
     }
 }

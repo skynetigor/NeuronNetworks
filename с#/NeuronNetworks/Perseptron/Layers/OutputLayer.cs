@@ -9,14 +9,13 @@ namespace NeuronNetworks.Perseptron.Layers
         public OutputLayer(int neuronsCount, ILayer previousLayer, int index)
         {
             Neurons = new INeuron[neuronsCount];
-            var inputsCount = previousLayer.OutputsCount;
+            InputsCount = previousLayer.OutputsCount;
 
             for (int i = 0; i < Neurons.Length; i++)
             {
-                Neurons[i] = new Neuron(inputsCount, i, this);
+                Neurons[i] = new Neuron(InputsCount, i, this);
             }
 
-            InputsCount = inputsCount;
             PreviousLayer = previousLayer;
             Index = index;
         }
@@ -57,7 +56,7 @@ namespace NeuronNetworks.Perseptron.Layers
                 }
             }
 
-            var prevLayer = PreviousLayer as HiddenLayer;
+            var prevLayer = PreviousLayer as IOutputLayer;
 
             if (prevLayer != null)
             {

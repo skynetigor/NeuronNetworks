@@ -19,10 +19,10 @@
     ],
     "paths": {
       "neuron-network-lib": [
-        "dist/neuron-network-lib"
+        "projects/neuron-network-lib/src/public_api"
       ],
       "neuron-network-lib/*": [
-        "dist/neuron-network-lib/*"
+        "projects/neuron-network-lib/src/lib/*"
       ]
     }
   }
