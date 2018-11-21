@@ -1,12 +1,10 @@
-import { Observable, Subject } from 'rxjs';
+import { Utils } from '../../util';
 
-import { ILayer, ITrainSet, INeuron } from '../../abstract';
+import { ILayer, INeuron, ITrainSet } from '../../abstract';
 import { AbstractTeacher, IOutputLayer } from '../abstract';
-import { Utils } from 'neuron-network-lib/util';
 
 export class PerseptronTeacher extends AbstractTeacher {
-    public teach(layers: ILayer[], trainSets: ITrainSet[], mse: (errors: number[]) => void): Observable<number[]> {
-        const mseSubject = new Subject<number[]>();
+    public teach(layers: ILayer[], trainSets: ITrainSet[], mse: (errors: number[]) => void): void {
         const outputLayer = layers[layers.length - 1];
 
         for (let epochIndex = 0; epochIndex < this.epochsCount; epochIndex++) {
@@ -45,8 +43,6 @@ export class PerseptronTeacher extends AbstractTeacher {
 
             });
         }
-
-        return mseSubject.asObservable();
     }
 
     private teachLayer(currentLayer: IOutputLayer, prev: ILayer, errors: number[], inputsPerLayer: number[][], outputsPerLayer: number[][]) {
@@ -68,7 +64,7 @@ export class PerseptronTeacher extends AbstractTeacher {
 
             for (let i = 0; i < prev.outputsCount; i++) {
                 for (let j = 0; j < currentLayer.outputsCount; j++) {
-                    let err = outputErrors[i] || 0;
+                    let err: any = outputErrors[i] || 0;
                     err = err + currentLayer.neurons[j].weights[i] * wd[j];
                     outputErrors[i] = err;
                 }

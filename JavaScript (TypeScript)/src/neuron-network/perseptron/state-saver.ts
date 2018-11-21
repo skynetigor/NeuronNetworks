@@ -1,4 +1,4 @@
-import { InputLayer, OutputLayer, HiddenLayer } from './Layers';
+import { InputLayer } from './Layers';
 
 export class NeuronNetworkStateManager {
     public getState(array: any[]) {
@@ -10,7 +10,7 @@ export class NeuronNetworkStateManager {
 
             
 
-            result.push(v.neurons.map(t => t.weights));
+            result.push(v.neurons.map((t: any) => t.weights));
         }
 
         return result;

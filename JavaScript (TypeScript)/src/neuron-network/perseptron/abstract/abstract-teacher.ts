@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { ILayer, ITrainSet } from '../../abstract';
 
 export abstract class AbstractTeacher {
@@ -9,5 +8,5 @@ export abstract class AbstractTeacher {
 
     }
 
-    public abstract teach(layers: ILayer[], trainSets: ITrainSet[], mse: (errors: number[]) => void): Observable<number[]>;
+    public abstract teach(layers: ILayer[], trainSets: ITrainSet[], mse: (errors: number[]) => void): void;
 }

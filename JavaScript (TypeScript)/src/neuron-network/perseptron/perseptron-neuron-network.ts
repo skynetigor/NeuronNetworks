@@ -1,13 +1,10 @@
-import { Observable } from 'rxjs';
-
-import { PerseptronConfig } from './perseptron-config';
-
+import { AbstractNeuronNetwork, ILayer, ITrainSet } from '../abstract';
+import { Utils } from '../util';
+import { IInputLayer } from './abstract';
 import { HiddenLayer, InputLayer, OutputLayer } from './Layers';
-import { PerseptronTeacher } from './teachers';
-import { ILayer, AbstractNeuronNetwork, ITrainSet } from '../abstract';
-import { IInputLayer, IOutputLayer } from './abstract';
-import { Utils } from 'neuron-network-lib/util';
+import { PerseptronConfig } from './perseptron-config';
 import { NeuronNetworkStateManager } from './state-saver';
+import { PerseptronTeacher } from './teachers';
 
 export class PerseptronNeuronNetwork extends AbstractNeuronNetwork {
     private layers: ILayer[];
@@ -48,7 +45,7 @@ export class PerseptronNeuronNetwork extends AbstractNeuronNetwork {
         return output;
     }
 
-    public study(trainSets: ITrainSet[], epochsCount: number, learningRate: number, mse: (errors: number[]) => void): Observable<number[]> {
+    public study(trainSets: ITrainSet[], epochsCount: number, learningRate: number, mse: (errors: number[]) => void): void {
         const teacher = new PerseptronTeacher(epochsCount, learningRate);
 
         return teacher.teach(this.layers, trainSets, mse);
