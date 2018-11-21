@@ -1,5 +1,3 @@
-import { Utils } from '../../util';
-
 import { ILayer, INeuron, ITrainSet } from '../../abstract';
 import { AbstractTeacher, IOutputLayer } from '../abstract';
 
@@ -21,7 +19,7 @@ export class PerseptronTeacher extends AbstractTeacher {
                     const inputPerLayer = layerIndex === 0 ? inputs : outputsPerLayer[layerIndex - 1];
 
                     inputsPerLayer[layerIndex] = inputPerLayer;
-                    outputsPerLayer[layerIndex] = layerIndex === 0 ? inputPerLayer : layer.handle(inputPerLayer).map(Utils.throughSigmoid);
+                    outputsPerLayer[layerIndex] = layerIndex === 0 ? inputPerLayer : layer.handle(inputPerLayer).map(this.activationProvider.activationFunction);
                 }
 
                 let errors = [];
@@ -51,7 +49,7 @@ export class PerseptronTeacher extends AbstractTeacher {
         for (let neuronIndex = 0; neuronIndex < currentLayer.outputsCount; neuronIndex++) {
             const neuron: INeuron = currentLayer.neurons[neuronIndex];
             const error = errors[neuronIndex];
-            const weightsDelta = error * (Utils.weightsDelta(error));
+            const weightsDelta = error * (this.activationProvider.derivative(error));
             wd[neuronIndex] = weightsDelta;
 
             for (let weightIndex = 0; weightIndex < neuron.weights.length; weightIndex++) {

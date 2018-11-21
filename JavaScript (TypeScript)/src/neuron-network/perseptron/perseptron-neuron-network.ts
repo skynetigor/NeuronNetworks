@@ -1,14 +1,14 @@
 import { AbstractNeuronNetwork, ILayer, ITrainSet } from '../abstract';
-import { Utils } from '../util';
 import { IInputLayer } from './abstract';
 import { HiddenLayer, InputLayer, OutputLayer } from './Layers';
 import { PerseptronConfig } from './perseptron-config';
 import { NeuronNetworkStateManager } from './state-saver';
 import { PerseptronTeacher } from './teachers';
+import { SigmoidActivationProvider } from './teachers/sigmoid-activation-provider';
 
 export class PerseptronNeuronNetwork extends AbstractNeuronNetwork {
     private layers: ILayer[];
-
+    private activationProvider = new SigmoidActivationProvider();
     /**
      * Inititalizes new instance
      */
@@ -33,20 +33,22 @@ export class PerseptronNeuronNetwork extends AbstractNeuronNetwork {
                 layer.nextLayer = this.layers[i + 1];
             }
         }
+
+
     }
 
     public getAnswer(inputs: number[]): number[] {
 
         let output = inputs;
         for (let i = 1; i < this.layers.length; i++) {
-            output = this.layers[i].handle(output).map(Utils.throughSigmoid);
+            output = this.layers[i].handle(output).map(this.activationProvider.activationFunction);
         }
 
         return output;
     }
 
     public study(trainSets: ITrainSet[], epochsCount: number, learningRate: number, mse: (errors: number[]) => void): void {
-        const teacher = new PerseptronTeacher(epochsCount, learningRate);
+        const teacher = new PerseptronTeacher(this.activationProvider, epochsCount, learningRate);
 
         return teacher.teach(this.layers, trainSets, mse);
     }
