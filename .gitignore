@@ -13,6 +13,8 @@
 
 # dependencies
 **/node_modules
+**/dist
+*.js
 
 # IDEs and editors
 /.idea

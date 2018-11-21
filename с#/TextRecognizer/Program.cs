@@ -11,10 +11,10 @@ namespace TextRecognizer
         static void Main(string[] args)
         {
             //var imgProc = ImageProcessorTest.ImageProcessor;
-            //var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\AMMMY.jpg"));
-            //var imgProc = ImageProcessorTest.ImageProcessor;
-            //var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\WINWORD_2018-09-20_20-29-48.jpg"));
+            //var image = new Bitmap(Image.FromFile(@"E:\Projects\NeuronNetwork\TextRecognizer\bin\Debug\Examples\full.jpg"));
             //var i = 0;
+
+            //ImageProcessorTest.Monochrom.Handle(image).Save("temp/ddadasdasds.jpg");
 
 
             //var b = imgProc.GetLetters(image);
@@ -23,24 +23,27 @@ namespace TextRecognizer
 
             //var words = imgProc.GetWords(rows[0]);
 
-            //foreach (var letter in b[0][1])
+            //foreach (var letter in rows)
             //{
             //    letter.Save($"temp/{i}.jpg");
             //    i++;
             //}
-            //var i = 0;
-            //var letters = imgProc.GetLetters(image);
-
+            //i = 0;
+            //var letters = b;
+            //var f = 0;
             //foreach (var row in letters)
             //{
+            //    var cc = 0;
             //    foreach (var word in row)
             //    {
             //        foreach (var letter in word)
             //        {
-            //            letter.Save($"temp/{i}.jpg");
+            //            System.IO.Directory.CreateDirectory($"temp/{f}");
+            //            letter.Save($"temp/{f}/{i}.jpg");
             //            i++;
             //        }
             //    }
+            //    f++;
             //}
 
             //Console.WriteLine("dadas");
